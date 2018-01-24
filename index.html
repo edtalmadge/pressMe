@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Pess Me</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Button 1 -->
+
+    <button id="button1" class="pressMe button" data-pressme_class_prefix="button1" data-pressme_add_child_divs="1" data-pressme_do_child_pos_fx="true">Button 1</button>
+
+    <p>On page load, JavaScript is used to add a child div to to the button. On click, a CSS class is added to animate the child
+        div</p>
+
+
+    <!-- Button 2 -->
+
+    <button id="button2" class="pressMe button" data-pressme_class_prefix="button2" data-pressme_add_child_divs="1">Button 2</button>
+
+    <p>Button animates accoridng to a set timeline with @keyframes. Does not wait for callback.</p>
+
+
+    <!-- Button 3 -->
+
+    <button id="button3" class="pressMe button" 
+    data-pressme_class_prefix="button3" 
+    data-pressme_add_child_divs="1"
+    data-pressme_waiting_text="Loading"
+    data-pressme_timeline_click="0-2000,1000-3000,wait,0-2000,800-3000">Button 3</button>
+
+    <p>Button has intro animation, then waiting animation. Once callback is returned exit animation happens.</p>
+
+
+    <!--
+Button States:
+Normal
+Hover
+Keydown
+Keyup
+
+Clicked
+Click Begining
+Click Ending
+Loading
+Load Begining
+Load Ending
+
+-->
+
+<script src="pressMe.js"></script>
+</body>
+
+</html>
