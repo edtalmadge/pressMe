@@ -11,7 +11,8 @@
     <button id="button1" class="pressMe button" data-pressme_class_prefix="button1" data-pressme_add_child_divs="1" data-pressme_do_child_pos_fx="true">Button 1</button>
 
     <p>On page load, JavaScript is used to add a child div to to the button. On click, a CSS class is added to animate the child
-        div</p>
+        div
+    </p>
 
 
     <!-- Button 2 -->
@@ -23,11 +24,8 @@
 
     <!-- Button 3 -->
 
-    <button id="button3" class="pressMe button" 
-    data-pressme_class_prefix="button3" 
-    data-pressme_add_child_divs="1"
-    data-pressme_waiting_text="Loading"
-    data-pressme_timeline_click="0-2000,1000-3000,wait,0-2000,800-3000">Button 3</button>
+    <button id="button3" class="pressMe button" data-pressme_class_prefix="button3" data-pressme_add_child_divs="1" data-pressme_waiting_text="Loading"
+        data-pressme_timeline_click="0-2000,1000-3000,wait,0-2000,800-3000">Button 3</button>
 
     <p>Button has intro animation, then waiting animation. Once callback is returned exit animation happens.</p>
 
@@ -48,7 +46,42 @@ Load Ending
 
 -->
 
-<script src="pressMe.js"></script>
+    <script src="pressMe.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /*
+            var pressMeItems = document.querySelectorAll(".pressMe");
+             
+            for (var i = 0; i < pressMeItems.length; i++) {
+              (function(){
+                pressMe(pressMeItems[i]);
+              })();
+            }
+            */
+
+            var button1 = document.getElementById("button1");
+            var button1PressMe = pressMe(button1);
+
+            var button2 = document.getElementById("button2");
+            var button2PressMe = pressMe(button2);
+
+            var button3 = document.getElementById("button3");
+            var button3PressMe = new pressMe(button3);
+
+            button3.addEventListener("click", button3ClickHandler);
+
+            function button3ClickHandler() {
+                setTimeout(function () {
+                    console.log("button3ClickHandler Callback");
+                    button3PressMe.stopWaiting();
+                }, 8000);
+            }
+        }, false);
+
+
+    </script>
 </body>
 
 </html>

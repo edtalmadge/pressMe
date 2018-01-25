@@ -101,7 +101,6 @@ function pressMe(el) {
     function doClickTimeline(startAfterWait) {
         var tlSectionStart = 0;
         var tlSectionEnd = 0;
-// test
         if (startAfterWait === true) {
             // TODO: if start after wait, set tlSectionStart to end of last
             jStart = waitIndex + 1;
@@ -150,33 +149,4 @@ function pressMe(el) {
             doClickTimeline(true);
         }
     };
-}
-
-/* Invoke the function */
-/*
-var pressMeItems = document.querySelectorAll(".pressMe");
- 
-for (var i = 0; i < pressMeItems.length; i++) {
-  (function(){
-    pressMe(pressMeItems[i]);
-  })();
-}
-*/
-
-var button1 = document.getElementById("button1");
-var button1PressMe = pressMe(button1);
-
-var button2 = document.getElementById("button2");
-var button2PressMe = pressMe(button2);
-
-var button3 = document.getElementById("button3");
-var button3PressMe = new pressMe(button3);
-
-button3.addEventListener("click", button3ClickHandler);
-
-function button3ClickHandler() {
-    setTimeout(function () {
-        console.log("button3ClickHandler Callback");
-        button3PressMe.stopWaiting();
-    }, 8000);
 }
