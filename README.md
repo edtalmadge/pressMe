@@ -62,11 +62,14 @@ var button1PressMe = pressMe(button1);
 ```
 
 ## How it Works
+
+Add data-pressme attributes to your button.
+
 When your button is clicked, a class of [data-pressme_class_prefix value]-click-response. Each time your button is clicked, that class is removed, then added allowing for repeat animations. 
 
  In order to create the animations, please write your own CSS based off of the class prefix value you specified.
 
-There are additional attributes you can add, such as timeline, which give you more animation possibilities. See the Attributes section below.
+There are additional attributes you can add, such as timeline, which give you more animation possibilities. See the Data Attributes section below.
 
 ## Data Attributes
 
@@ -104,6 +107,6 @@ There are additional attributes you can add, such as timeline, which give you mo
         }, 5000);
     }
    ```
-    * **data-pressme_waiting_text**: 
-   * Enter the button text that should appear durring the waiting section of the timeline.
-   * Example: `data-pressme_waiting_text="Loading"`
+* **data-pressme_waiting_text**: 
+  * Enter the button text that should appear durring the waiting section of the timeline.
+  * Example: `data-pressme_waiting_text="Loading"`
