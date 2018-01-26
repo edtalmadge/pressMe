@@ -13,7 +13,7 @@ var button1PressMe = pressMe(button1);
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo" 
-data-pressme_timeline_click="0-400,200-800,700-1000">Press Me</button>
+data-pressme_timeline="0-400,200-800,700-1000">Press Me</button>
 ```
 ```javascript
 var button1 = document.getElementById("button1");
@@ -24,7 +24,7 @@ var button1PressMe = pressMe(button1);
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo" 
-data-pressme_timeline_click="0-400,200-800,wait,0-300,300-700" data-pressme_waiting_text="Loading">Press Me</button>
+data-pressme_timeline="0-400,200-800,wait,0-300,300-700" data-pressme_waiting_text="Loading">Press Me</button>
 ```
 ```javascript
 var button1 = document.getElementById("button1");
@@ -70,12 +70,40 @@ There are additional attributes you can add, such as timeline, which give you mo
 
 ## Data Attributes
 
-data-pressme_class_prefix
+* **data-pressme_class_prefix** (required):  
+    * A string that will be used as the prefix for CSS classes added by pressMe.js. 
+    * Allows you to create CSS that works for a specific button only. 
+    * When a button is clicked, this class is added: [pressMeClassPrefix]-click-response"
+    * Example: `data-pressme_class_prefix="button1"`
 
-data-pressme_add_child_divs
+* **data-pressme_add_child_divs**: 
+  * Enter the number of child divs that you would like pressMe.js to add to your button. 
+  * Gives you divs to style and animate. 
+  * Each child div is given a class of [pressMeClassPrefix]-child.
+  * Example: `data-pressme_add_child_divs="7"`
 
-data-pressme_do_child_pos_fx
+* **data-pressme_do_child_pos_fx**: 
+  * Enter &ldquo;true&rdquo; to enable.
+  * When your button is pressed, the x position of child divs changes to be the same as the cursor position.
+  * Example: `data-pressme_do_child_pos_fx="true"`
 
- data-pressme_waiting_text
-
- data-pressme_timeline_click
+ * **data-pressme_timeline**: 
+   * Enter a comma seperated list of time ranges in milliseconds. Time ranges can overlap.
+   * During each time range pressMe.js will add, then remove the class name of [pressMeClassPrefix]-tl-[time range index] to your button.
+   * Cause the timeline to pause until a callback is recieved by adding &ldquo;wait&rdquo; to the timeline. The wait section of the timeline begins after the previous section of the timeline finishes (no overlap). Invoke the stopWaiting method to resume the timeline after the wait section.
+   * Example data attribute: `data-pressme_timeline="0-200,100-700,wait,0-400,400-600"`
+   * Example JavaScirpt:
+   ```javascript
+    var button1 = document.getElementById("button1");
+    var button1PressMe = new pressMe(button1);
+    button3.addEventListener("click", button1ClickHandler);
+    
+    function button1ClickHandler() {
+        setTimeout(function () {
+            button1PressMe.stopWaiting();
+        }, 5000);
+    }
+   ```
+    * **data-pressme_waiting_text**: 
+   * Enter the button text that should appear durring the waiting section of the timeline.
+   * Example: `data-pressme_waiting_text="Loading"`
