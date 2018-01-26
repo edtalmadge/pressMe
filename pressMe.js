@@ -3,7 +3,7 @@ function pressMe(el) {
     /* get values from data attributes */
     var pressMeClassPrefix = el.dataset.pressme_class_prefix;
     var doChildPositionFX = el.dataset.pressme_do_child_pos_fx; // means "Position Effects";
-    var clickTimeline = el.dataset.pressme_timeline_click;
+    var clickTimeline = el.dataset.pressme_timeline;
     var waitText = el.dataset.pressme_waiting_text;
     var defaultText = el.innerText;
 
