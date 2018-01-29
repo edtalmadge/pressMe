@@ -1,3 +1,5 @@
+# pressMe
+
 Assists with button animations. Add data attributes to your button and pressMe.js will add/remove classes on a configurable timeline when your button is clicked.
 
 ## Example Usage (without timeline)
@@ -28,7 +30,7 @@ data-pressme_timeline="0-400,200-800,wait,0-300,300-700" data-pressme_waiting_te
 ```
 ```javascript
 var button1 = document.getElementById("button1");
-var button1PressMe = pressMe(button1);
+var button1PressMe = new pressMe(button1);
 
 // simulating something you need to wait for
 button1.addEventListener("click", button3ClickHandler);
