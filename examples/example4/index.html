@@ -1,0 +1,22 @@
+<html>
+
+<head>
+    <title>Pess Me</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <button id="button1" data-pressme_class_prefix="foo" data-pressme_add_child_divs="3" data-pressme_do_child_pos_fx="true">Press Me</button>
+    
+    <script src="../../pressMe.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var button1 = document.getElementById("button1");
+            var button1PressMe = pressMe(button1);
+        }, false);
+    </script>
+
+</body>
+
+</html>

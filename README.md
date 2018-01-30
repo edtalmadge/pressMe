@@ -2,7 +2,11 @@
 
 Assists with button animations. Add data attributes to your button and pressMe.js will add/remove classes on a configurable timeline when your button is clicked.
 
+<a href="https://codepen.io/edtalmadge/pen/ZrYLNY">View Demo</a>
+
 ## Example Usage (without timeline)
+
+<a href="https://codepen.io/edtalmadge/pen/XZWpBd">View on Codepen</a>
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo">Press Me</button>
@@ -12,6 +16,8 @@ var button1 = document.getElementById("button1");
 var button1PressMe = pressMe(button1);
 ```
 ## Example Usage (with timeline)
+
+<a href="https://codepen.io/edtalmadge/pen/ddyNBd">View on Codepen</a>
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo" 
@@ -23,6 +29,8 @@ var button1PressMe = pressMe(button1);
 ```
 
 ## Example Usage (with timeline and waits for callback)
+
+<a href="https://codepen.io/edtalmadge/pen/rJNyBW">View on Codepen</a>
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo" 
@@ -42,6 +50,8 @@ function button3ClickHandler() {
 ```
 
 ## Example Usage (adding child divs)
+
+<a href="https://codepen.io/edtalmadge/pen/ZrYLNY">View on Codepen</a>
 
 ```html
 <button id="button1" data-pressme_class_prefix="foo" data-pressme_add_child_divs="3" data-pressme_do_child_pos_fx="true">Press Me</button>

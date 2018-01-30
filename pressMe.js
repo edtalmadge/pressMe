@@ -6,6 +6,7 @@ function pressMe(el) {
     var clickTimeline = el.dataset.pressme_timeline;
     var waitText = el.dataset.pressme_waiting_text;
     var defaultText = el.innerText;
+    var waitIndex;
 
     if (clickTimeline) {
         clickTimeline = clickTimeline.split(",");
@@ -101,6 +102,8 @@ function pressMe(el) {
     function doClickTimeline(startAfterWait) {
         var tlSectionStart = 0;
         var tlSectionEnd = 0;
+        var jStart;
+        
         if (startAfterWait === true) {
             // TODO: if start after wait, set tlSectionStart to end of last
             jStart = waitIndex + 1;
