@@ -1,162 +1,60 @@
-/* style for all buttons */
-.button {
-    width: auto; height: auto;
-    border: none;
-    background-color: #ededed;
-    border-radius: 6px;
-    padding: 12px 24px;
-    color: #555;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.2s ease-in-out;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-  }
-  
-  .button:hover {
-    background-color: #cecece;
-  }
-  
-  .button:active {
-    /*background-color: #b1b1b1;*/
-  }
-  
-  button:focus {
-    outline: 0;
-  }
-  
-  
-  /* ****************** */
-  /* styles for button1 */
-  /* ****************** */
-  
-  @keyframes button1Dec {
-    0%, 100% {
-      opacity: 0;
-      transform: scale(5) translate(-50%, 0%);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(9) translate(-50%, -2%);
-    }
-  }
-  
-  .button1-click-response div {
-    content: "";
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    background-color: #b1b1b1;
-    position: absolute;
-    left: 50%; top: 50%;
-    z-index: -1;
-    animation: button1Dec 0.5s forwards 1;
-    transform-origin: left top;
-  }
-  
-  
-  /* ****************** */
-  /* styles for button2 */
-  /* ****************** */
-  
-  @keyframes button2 {
-    5%, 94% {
-      background-color: #333;
-      color: #fff;
-    }
-    95% {
-      background-color: #ededed;
-      color: #555;
-    }
-  }
-  
-  @keyframes button2Dec {
-    0%, 33%, 66%, 100% {
-      left: -50px;
-    }
-    17%, 50%, 83% {
-      left: 100%;
-    }
-  }
-  
-  .button2-click-response {
-    animation: button2 5.5s forwards 1;
-  }
-  
-  .button2-click-response div {
-    content: "";
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background-color: #b1b1b1;
-    position: absolute;
-    left: -50px; top: 14px;
-    z-index: -1;
-    animation: button2Dec 5s forwards 1 500ms;
-    transform-origin: left top;
-  }
+/* example 1 */
 
-  /* ****************** */
-  /* styles for button3 */
-  /* ****************** */
-  
-  /* @keyframes button3 {
-    5%, 94% {
-      background-color: #333;
-      color: #fff;
-    }
-    95% {
-      background-color: #ededed;
-      color: #555;
-    }
-  }
-  
-  @keyframes button3Dec {
-    0%, 33%, 66%, 100% {
-      left: -50px;
-    }
-    17%, 50%, 83% {
-      left: 100%;
-    }
-  }
-  
-  .button3-click-response {
-    animation: button2 5.5s forwards 1;
-  }
-  
-  .button3-click-response div {
-    content: "";
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background-color: #b1b1b1;
-    position: absolute;
-    left: -50px; top: 14px;
-    z-index: -1;
-    animation: button2Dec 5s forwards 1 500ms;
-    transform-origin: left top;
-  } */
-
-.button3 {
-    border: 1px solid black;
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0D081A;
 }
 
-.button3-tl-0 {
-    background-color: red !important;
+.buttonWrapper {
+  width: 128px;
+  height: 38px;
+  overflow: hidden;
+  position: relative;
 }
 
-.button3-tl-1 {
-    background-color: purple !important;
+button {
+  width: 128px;
+  height: 38px;
+  cursor: pointer;
+  border: none;
+  background-color: #FF1874;
+  color: #fff;
+  border-radius: 8px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 1;
 }
 
-.button3-tl-2 {
-    background-color: green !important;
+button:before {
+  content: "";
+  opacity: 0.4;
+  background-color: #fff;
+  display: block;
+  width: 30px; height: 38px;
+  position: absolute;
+  left: -100px; top: 0;
+  transform: skew(20deg)
 }
 
-.button3-tl-3 {
-    background-color: orange !important;
+button:after {
+  content: "";
+  opacity: 0.3;
+  background-color: #fff;
+  display: block;
+  width: 16px; height: 38px;
+  position: absolute;
+  left: -100px; top: 0;
+  transform: skew(20deg)
 }
 
-.button3-tl-4 {
-    background-color: blue !important;
+.foo-click-response:before {
+  left: 30px;
 }
 
-
+.foo-click-response:after {
+  left: 70px;
+}
