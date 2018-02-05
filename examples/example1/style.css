@@ -17,6 +17,7 @@ body {
 button {
   width: 128px;
   height: 38px;
+  overflow: hidden;
   cursor: pointer;
   border: none;
   background-color: #FF1874;
@@ -27,34 +28,62 @@ button {
   position: absolute;
   left: 0; top: 0;
   z-index: 1;
+  transition: background-color 200ms ease-in-out;
+}
+
+button:hover {
+  background-color: rgb(255, 37, 124);
+}
+
+button:focus {
+  outline: none;
 }
 
 button:before {
   content: "";
-  opacity: 0.4;
   background-color: #fff;
   display: block;
-  width: 30px; height: 38px;
+  width: 100px; height: 38px;
   position: absolute;
-  left: -100px; top: 0;
+  left: -140px; top: 0;
   transform: skew(20deg)
 }
 
 button:after {
   content: "";
-  opacity: 0.3;
   background-color: #fff;
   display: block;
-  width: 16px; height: 38px;
+  width: 100px; height: 38px;
   position: absolute;
-  left: -100px; top: 0;
+  right: -140px; top: 0;
   transform: skew(20deg)
 }
 
 .foo-click-response:before {
-  left: 30px;
+  animation: sheen1 400ms ease-out;
 }
 
 .foo-click-response:after {
-  left: 70px;
+  animation: sheen2 500ms ease-in-out 100ms;
+}
+
+@keyframes sheen1 {
+  0% {left: -100px; opacity: 0.4;}
+  100% {left: 100%; opacity: 0.1;}
+}
+
+@keyframes sheen2 {
+  0% {right: -100px; opacity: 0.4;}
+  100% {right: 100%; opacity: 0.1;}
+}
+
+.foo-click-response {
+  animation: buttonAnimation 1000ms;
+}
+
+@keyframes buttonAnimation {
+  0% {background-color: #FF1874;}
+  1% {background-color: rgb(250, 152, 191);}
+  10% {background-color: rgb(250, 152, 191);}
+  11% {background-color: #FF1874;}
 }
