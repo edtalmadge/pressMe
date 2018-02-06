@@ -5,6 +5,7 @@ Assists with button animations. Add data attributes to your button and pressMe.j
 <a href="https://codepen.io/edtalmadge/pen/ZrYLNY">View Demo</a>
 
 ## Example Usage (without timeline)
+This is a bare-bones usage, but the benefit is that the button animation will repeat each time the button is clicked. The repeat happens because the class of [pressme_class_prefix]-click-response is removed, then added on click.
 
 <a href="https://codepen.io/edtalmadge/pen/XZWpBd">View on Codepen</a>
 
