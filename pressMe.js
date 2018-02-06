@@ -105,7 +105,6 @@ function pressMe(el) {
         var jStart;
         
         if (startAfterWait === true) {
-            // TODO: if start after wait, set tlSectionStart to end of last
             jStart = waitIndex + 1;
             el.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
             // If there's wait text, then add the normal text back
@@ -118,6 +117,8 @@ function pressMe(el) {
 
             if(j === waitIndex){
                 tlSectionStart = clickTimeline[j - 1][1];
+            } else {
+                tlSectionStart = clickTimeline[j][0];
             }
 
             tlSectionEnd = clickTimeline[j][1];
