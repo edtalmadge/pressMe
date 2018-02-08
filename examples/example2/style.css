@@ -39,54 +39,90 @@ button:focus {
 
 @keyframes shrinkMe {
   0% {
+    /* starting point */
     width: 132px;
     height: 36px;
     opacity: 1;
     bottom: 0;
     transform: rotate(0deg);
+    background-color: #FF1874;
+    border-radius: 8px;
   }
+
+  /* shrink and change color */
   5% {
     width: 20px;
     height: 20px;
-    border-radius: 0;
-    background-color: #fff;
     opacity: 1;
     bottom: 0;
     transform: rotate(0deg);
+    background-color: rgb(139, 139, 139);
+    border-radius: 0;
   }
+
+  /* rise up */
   10% {
     width: 20px;
     height: 20px;
-    border-radius: 0;
-    background-color: #fff;
     opacity: 1;
     bottom: 40px;
-    transform: rotate(0deg)
+    transform: rotate(0deg);
+    background-color: rgb(139, 139, 139);
+    border-radius: 0;
   }
-  20% {
+
+    /* pause */
+    20% {
+      width: 20px;
+      height: 20px;
+      opacity: 1;
+      bottom: 40px;
+      transform: rotate(0deg);
+      background-color: rgb(139, 139, 139);
+      border-radius: 0;
+    }
+
+  /* spin and change color */
+  30% {
     width: 20px;
     height: 20px;
-    border-radius: 0;
-    background-color: #fff;
     opacity: 1;
     bottom: 40px;
-    transform: rotate(1080deg)
+    transform: rotate(720deg);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0;
   }
-  40% {
+
+    /* pause */
+    40% {
+      width: 20px;
+      height: 20px;
+      opacity: 1;
+      bottom: 40px;
+      transform: rotate(720deg);
+      background-color: rgb(255, 255, 255);
+      border-radius: 0;
+    }
+
+  /* move down */
+  50% {
     width: 20px;
     height: 20px;
-    border-radius: 0;
-    background-color: #fff;
-    bottom: -40px;
     opacity: 0;
-    transform: rotate(0deg)
+    bottom: -40px;
+    transform: rotate(720deg);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0;
   }
 
   100% {
     width: 20px;
     height: 20px;
+    opacity: 0;
+    bottom: -40px;
+    transform: rotate(720deg);
+    background-color: rgb(255, 255, 255);
     border-radius: 0;
-    background-color: #fff;
   }
 }
 
