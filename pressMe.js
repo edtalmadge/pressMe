@@ -5,8 +5,17 @@ function pressMe(el) {
     var doChildPositionFX = el.dataset.pressme_do_child_pos_fx; // means "Position Effects";
     var clickTimeline = el.dataset.pressme_timeline;
     var waitText = el.dataset.pressme_waiting_text;
+    var repeatClicks = el.dataset.pressme_repeat_clicks || true;
     var defaultText = el.innerText;
     var waitIndex;
+    var buttonWasClicked = false;
+    var buttonIsRunning = false;
+
+    if (repeatClicks === "true") {
+        repeatClicks = true;
+    } else if (repeatClicks === "false") {
+        repeatClicks = false;
+    }
 
     if (clickTimeline) {
         clickTimeline = clickTimeline.split(",");
@@ -31,20 +40,30 @@ function pressMe(el) {
     }
 
     function clickHandler(e) {
-        if (doChildPositionFX === true) {
-            setChildLeftPositionToCursor(e);
-        }
+        if (repeatClicks === true
+            || (repeatClicks === false && buttonWasClicked === false)
+            || (repeatClicks === "wait" && buttonIsRunning === false)) {
 
-        // if there is a timeline
-        if (clickTimeline) {
-            doClickTimeline();
+            if (doChildPositionFX === true) {
+                setChildLeftPositionToCursor(e);
+            }
 
-        } else {
-            // no timeline
-            el.classList.remove(pressMeClassPrefix + "-click-response");
-            setTimeout(function () {
-                el.classList.add(pressMeClassPrefix + "-click-response");
-            }, 20);
+            // if there is a timeline
+            if (clickTimeline) {
+                doClickTimeline();
+
+            } else {
+                // no timeline
+                el.classList.remove(pressMeClassPrefix + "-click-response");
+                setTimeout(function () {
+                    el.classList.add(pressMeClassPrefix + "-click-response");
+                }, 20);
+            }
+
+            if (clickTimeline) {
+                buttonIsRunning = true;
+            }
+            buttonWasClicked = true;
         }
     }
 
@@ -103,7 +122,7 @@ function pressMe(el) {
         var tlSectionStart = 0;
         var tlSectionEnd = 0;
         var jStart;
-        
+
         if (startAfterWait === true) {
             jStart = waitIndex + 1;
             el.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
@@ -115,7 +134,7 @@ function pressMe(el) {
 
         for (var j = jStart; j < clickTimeline.length; j++) {
 
-            if(j === waitIndex){
+            if (j === waitIndex) {
                 tlSectionStart = clickTimeline[j - 1][1];
             } else {
                 tlSectionStart = clickTimeline[j][0];
@@ -127,16 +146,22 @@ function pressMe(el) {
             (function (j) {
                 setTimeout(function () {
                     el.classList.add(pressMeClassPrefix + "-tl-" + j);
-                    if(clickTimeline[j] === "wait"){
+                    if (clickTimeline[j] === "wait") {
                         // add wait text
                         el.innerText = waitText;
                     }
+                    
                 }, tlSectionStart);
 
                 if (clickTimeline[j] !== "wait") {
                     // remove class
                     setTimeout(function () {
                         el.classList.remove(pressMeClassPrefix + "-tl-" + j);
+
+                        if(j === clickTimeline.length - 1){
+                            buttonIsRunning = false;
+                        }
+
                     }, tlSectionEnd);
                 }
             })(j);
