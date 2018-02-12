@@ -6,6 +6,10 @@ function pressMe(el) {
     var clickTimeline = el.dataset.pressme_timeline;
     var waitText = el.dataset.pressme_waiting_text;
     var repeatClicks = el.dataset.pressme_repeat_clicks || true;
+    var classTarget = el;
+    if(el.dataset.pressme_class_target === "parent"){
+        classTarget = el.parentNode;
+    }
     var defaultText = el.innerText;
     var waitIndex;
     var buttonWasClicked = false;
@@ -54,9 +58,9 @@ function pressMe(el) {
 
             } else {
                 // no timeline
-                el.classList.remove(pressMeClassPrefix + "-click-response");
+                classTarget.classList.remove(pressMeClassPrefix + "-click-response");
                 setTimeout(function () {
-                    el.classList.add(pressMeClassPrefix + "-click-response");
+                    classTarget.classList.add(pressMeClassPrefix + "-click-response");
                 }, 20);
             }
 
@@ -74,8 +78,10 @@ function pressMe(el) {
     }
 
     var addChildDivsQty = parseInt(el.dataset.pressme_add_child_divs, 10);
+    var addSiblingDivsQty = parseInt(el.dataset.pressme_add_sibling_divs, 10);
 
     var childDivs;
+    var siblingDivs;
     el.addEventListener("click", clickHandler);
 
     if (addChildDivsQty > 0) {
@@ -85,12 +91,27 @@ function pressMe(el) {
         childDivs = document.querySelectorAll("." + pressMeClassPrefix + "-child");
     }
 
+    if (addSiblingDivsQty > 0) {
+        for (var i = 0; i < addSiblingDivsQty; i++) {
+            addSiblingDiv(el, pressMeClassPrefix);
+        }
+        siblingDivs = document.querySelectorAll("." + pressMeClassPrefix + "-sibling");
+    }
+
     function addChildDiv(el, pressMeClassPrefix) {
         var childDiv = document.createElement("div");
         childDiv.classList.add(pressMeClassPrefix + "-child");
         var fragment = document.createDocumentFragment();
         fragment.appendChild(childDiv);
         el.appendChild(fragment);
+    }
+
+    function addSiblingDiv(el, pressMeClassPrefix) {
+        var siblingDiv = document.createElement("div");
+        siblingDiv.classList.add(pressMeClassPrefix + "-sibling");
+        var fragment = document.createDocumentFragment();
+        fragment.appendChild(siblingDiv);
+        el.parentNode.appendChild(fragment);
     }
 
     function getTargetInfo(e) {
@@ -125,7 +146,7 @@ function pressMe(el) {
 
         if (startAfterWait === true) {
             jStart = waitIndex + 1;
-            el.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
+            classTarget.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
             // If there's wait text, then add the normal text back
             el.innerText = defaultText;
         } else {
@@ -145,7 +166,7 @@ function pressMe(el) {
             // add class
             (function (j) {
                 setTimeout(function () {
-                    el.classList.add(pressMeClassPrefix + "-tl-" + j);
+                    classTarget.classList.add(pressMeClassPrefix + "-tl-" + j);
                     if (clickTimeline[j] === "wait") {
                         // add wait text
                         el.innerText = waitText;
@@ -156,7 +177,7 @@ function pressMe(el) {
                 if (clickTimeline[j] !== "wait") {
                     // remove class
                     setTimeout(function () {
-                        el.classList.remove(pressMeClassPrefix + "-tl-" + j);
+                        classTarget.classList.remove(pressMeClassPrefix + "-tl-" + j);
 
                         if(j === clickTimeline.length - 1){
                             buttonIsRunning = false;
