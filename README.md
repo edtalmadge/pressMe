@@ -105,14 +105,14 @@ There are additional attributes you can add, such as timeline, which give you mo
   * Each child div is given a class of [pressMeClassPrefix]-child.
   * Example: `data-pressme_add_child_divs="7"`
 
-  * **data-pressme_add_sibling_divs**: 
+* **data-pressme_add_sibling_divs**: 
   * Enter the number of sibling divs that you would like pressMe.js to add to the element that contains your button. 
   * Gives you sibling divs to style and animate. 
   * Each sibling div is given a class of [pressMeClassPrefix]-child.
   * Example: `data-pressme_add_sibling_divs="7"`
 
 
-  * **data-pressme_class_target**: 
+* **data-pressme_class_target**: 
   * Enter &ldquo;parent&rdquo; or &ldquo;self&rdquo; (default is &ldquo;self&rdquo;).
   * Determines which element pressMe.js will add and remove CSS classes.
   * Example: `data-pressme_class_target="parent"`
