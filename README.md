@@ -10,7 +10,14 @@ This is a bare-bones usage, but the benefit is that the button animation will re
 <a href="https://codepen.io/edtalmadge/pen/XZWpBd">View on Codepen</a>
 
 ```html
-<button id="button1" data-pressme_class_prefix="foo">Press Me</button>
+<div class="fooWrapper">
+    <button id="button1"
+        data-pressme_class_prefix="foo"
+        data-pressme_class_target="parent"
+        data-pressme_timeline="0-4500,1000-4500" 
+        data-pressme_add_sibling_divs = "1"
+        data-pressme_repeat_clicks="wait">Press Me</button>
+</div>
 ```
 ```javascript
 var button1 = document.getElementById("button1");
@@ -94,9 +101,21 @@ There are additional attributes you can add, such as timeline, which give you mo
 
 * **data-pressme_add_child_divs**: 
   * Enter the number of child divs that you would like pressMe.js to add to your button. 
-  * Gives you divs to style and animate. 
+  * Gives you child divs to style and animate. 
   * Each child div is given a class of [pressMeClassPrefix]-child.
   * Example: `data-pressme_add_child_divs="7"`
+
+  * **data-pressme_add_sibling_divs**: 
+  * Enter the number of sibling divs that you would like pressMe.js to add to the element that contains your button. 
+  * Gives you sibling divs to style and animate. 
+  * Each sibling div is given a class of [pressMeClassPrefix]-child.
+  * Example: `data-pressme_add_sibling_divs="7"`
+
+
+  * **data-pressme_class_target**: 
+  * Enter &ldquo;parent&rdquo; or &ldquo;self&rdquo; (default is &ldquo;self&rdquo;).
+  * Determines which element pressMe.js will add and remove CSS classes.
+  * Example: `data-pressme_class_target="parent"`
 
 * **data-pressme_do_child_pos_fx**: 
   * Enter &ldquo;true&rdquo; to enable.
