@@ -10,14 +10,7 @@ This is a bare-bones usage, but the benefit is that the button animation will re
 <a href="https://codepen.io/edtalmadge/pen/XZWpBd">View on Codepen</a>
 
 ```html
-<div class="fooWrapper">
-    <button id="button1"
-        data-pressme_class_prefix="foo"
-        data-pressme_class_target="parent"
-        data-pressme_timeline="0-4500,1000-4500" 
-        data-pressme_add_sibling_divs = "1"
-        data-pressme_repeat_clicks="wait">Press Me</button>
-</div>
+<button id="button1" data-pressme_class_prefix="foo">Press Me</button>
 ```
 ```javascript
 var button1 = document.getElementById("button1");
@@ -28,8 +21,14 @@ var button1PressMe = pressMe(button1);
 <a href="https://codepen.io/edtalmadge/pen/ddyNBd">View on Codepen</a>
 
 ```html
-<button id="button1" data-pressme_class_prefix="foo" 
-data-pressme_timeline="0-400,200-800,700-1000">Press Me</button>
+<div class="fooWrapper">
+    <button id="button1"
+        data-pressme_class_prefix="foo"
+        data-pressme_class_target="parent"
+        data-pressme_timeline="0-4500,1000-4500" 
+        data-pressme_add_sibling_divs = "1"
+        data-pressme_repeat_clicks="wait">Press Me</button>
+</div>
 ```
 ```javascript
 var button1 = document.getElementById("button1");
