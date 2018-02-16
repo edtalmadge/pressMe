@@ -124,8 +124,10 @@ There are additional attributes you can add, such as timeline, which give you mo
  * **data-pressme_timeline**: 
    * Enter a comma seperated list of time ranges in milliseconds. Time ranges can overlap.
    * During each time range pressMe.js will add, then remove the class name of [pressMeClassPrefix]-tl-[time range index] to your button.
-   * Cause the timeline to pause until a callback is recieved by adding &ldquo;wait&rdquo; to the timeline. The wait section of the timeline begins after the previous section of the timeline finishes (no overlap). Invoke the stopWaiting method to resume the timeline after the wait section.
-   * Example data attribute: `data-pressme_timeline="0-200,100-700,wait,0-400,400-600"`
+   * **wait**: Cause the timeline to pause until a callback is recieved by adding &ldquo;wait&rdquo; to the timeline. The wait section of the timeline begins after the previous section of the timeline finishes (no overlap). Invoke the stopWaiting method to resume the timeline after the wait section.
+   * **[miliseconds]-doneWaiting**: Cause a class to remain on the element until the wait period is over.
+   * **[miliseconds]-end**: Cause a class to remain on the element until the timeline is complete.
+   * Example data attribute: `data-pressme_timeline="0-doneWaiting,100-end,300-doneWaiting,wait,0-2000"`
    * Example JavaScirpt:
    ```javascript
     var button1 = document.getElementById("button1");

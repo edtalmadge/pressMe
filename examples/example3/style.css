@@ -41,12 +41,16 @@ button:focus {
   outline: none;
 }
 
+.foo-tl-0 {
+  animation: startBouncing 1200ms infinite;
+}
+
 .foo-tl-1 {
-  background-color: green;
+  border: 3px solid red;
 }
 
 .foo-tl-2 {
-  animation: startBouncing 1200ms infinite;
+  background-color: green;
 }
 
 @keyframes startBouncing {

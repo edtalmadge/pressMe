@@ -14,6 +14,8 @@ function pressMe(el) {
     var waitIndex;
     var buttonWasClicked = false;
     var buttonIsRunning = false;
+    var startAfterWaitClasses = [];
+    var stopAtEndClasses = [];
 
     if (repeatClicks === "true") {
         repeatClicks = true;
@@ -29,7 +31,9 @@ function pressMe(el) {
                 clickTimeline[i] = clickTimeline[i].split("-");
 
                 for (var j = 0; j < clickTimeline[i].length; j++) {
-                    clickTimeline[i][j] = parseInt(clickTimeline[i][j], 10);
+                    if(clickTimeline[i][j] !== "doneWaiting" && clickTimeline[i][j] !== "end"){
+                        clickTimeline[i][j] = parseInt(clickTimeline[i][j], 10);
+                    }
                 }
             }
         }
@@ -140,11 +144,25 @@ function pressMe(el) {
     }
 
     function doClickTimeline(startAfterWait) {
+
         var tlSectionStart = 0;
         var tlSectionEnd = 0;
         var jStart;
+        var waitingEl;
+        var waitingClass;
+        var endingEl;
+        var endingClass;
 
         if (startAfterWait === true) {
+
+            for(var k = 0; k < startAfterWaitClasses.length; k++){
+                waitingClass = startAfterWaitClasses[k];
+                waitingEl = document.getElementsByClassName(waitingClass);
+                waitingEl = waitingEl[0];
+                waitingEl.classList.remove(waitingClass);
+            }
+            startAfterWaitClasses = [];
+
             jStart = waitIndex + 1;
             classTarget.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
             // If there's wait text, then add the normal text back
@@ -166,27 +184,44 @@ function pressMe(el) {
             // add class
             (function (j) {
                 setTimeout(function () {
-                    classTarget.classList.add(pressMeClassPrefix + "-tl-" + j);
                     if (clickTimeline[j] === "wait") {
                         // add wait text
                         el.innerText = waitText;
+                    } else {
+                        classTarget.classList.add(pressMeClassPrefix + "-tl-" + j);
                     }
                     
                 }, tlSectionStart);
 
-                if (clickTimeline[j] !== "wait") {
+                if (clickTimeline[j] !== "wait" && tlSectionEnd !== "doneWaiting" && tlSectionEnd !== "end") {
                     // remove class
                     setTimeout(function () {
                         classTarget.classList.remove(pressMeClassPrefix + "-tl-" + j);
 
                         if(j === clickTimeline.length - 1){
                             buttonIsRunning = false;
+
+                            for(var k = 0; k < stopAtEndClasses.length; k++){
+                                endingClass = stopAtEndClasses[k];
+                                endingEl = document.getElementsByClassName(endingClass);
+                                endingEl = endingEl[0];
+                                endingEl.classList.remove(endingClass);
+                            }
+                            stopAtEndClasses = [];
+
                         }
 
                     }, tlSectionEnd);
                 }
+
             })(j);
 
+            if(tlSectionEnd === "doneWaiting"){
+                startAfterWaitClasses.push(pressMeClassPrefix + "-tl-" + j);
+            } else if(tlSectionEnd === "end"){
+                stopAtEndClasses.push(pressMeClassPrefix + "-tl-" + j);
+            }
+            
             if (clickTimeline[j] === "wait") {
                 break;
             }
