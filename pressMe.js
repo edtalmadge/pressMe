@@ -205,7 +205,9 @@ function pressMe(el) {
                                 endingClass = stopAtEndClasses[k];
                                 endingEl = document.getElementsByClassName(endingClass);
                                 endingEl = endingEl[0];
-                                endingEl.classList.remove(endingClass);
+                                if(endingEl){
+                                    endingEl.classList.remove(endingClass);
+                                }
                             }
                             stopAtEndClasses = [];
 

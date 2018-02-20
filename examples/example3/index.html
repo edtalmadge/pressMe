@@ -12,20 +12,40 @@
     <script src="../../pressMe.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             var button1 = document.getElementById("button1");
             var button1PressMe = new pressMe(button1);
+            var button1WaitOver = false;
+            var button1SafeteyTimeout;
 
             button1.addEventListener("click", button1ClickHandler);
+            button1.addEventListener("animationiteration", button1AnimationListener, false);
+
+            function button1AnimationListener(){
+                if(button1WaitOver === true){
+                    button1PressMe.stopWaiting();
+                }
+            }
 
             function button1ClickHandler() {
+                button1WaitOver = false;
+
+                // simulate ajax call
                 setTimeout(function () {
                     console.log("button1ClickHandler Callback");
-                    button1PressMe.stopWaiting();
+                    button1WaitOver = true;
+                    
+                    // failsafe in case animationiteration listener breaks
+                    button1SafeteyTimeout = setTimeout(function(){
+                        console.log("button1SafeteyTimeout");
+                        button1PressMe.stopWaiting()
+                        }, 2000);
+
                 }, 3000);
             }
         }, false);
+
     </script>
 
 </body>
-
 </html>

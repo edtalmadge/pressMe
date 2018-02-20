@@ -46,11 +46,19 @@ button:focus {
 }
 
 .foo-tl-1 {
-  border: 3px solid red;
+  background-color: #00B20A !important;
 }
 
 .foo-tl-2 {
-  background-color: green;
+  
+}
+
+.foo-tl-3 {
+  
+}
+
+.foo-tl-4 {
+  
 }
 
 @keyframes startBouncing {
