@@ -34,7 +34,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(255, 37, 124);
+  background-color: rgb(255, 1, 191);
 }
 
 button:focus {
@@ -42,23 +42,15 @@ button:focus {
 }
 
 .foo-tl-0 {
-  animation: startBouncing 1200ms infinite;
+  animation: startBouncing 900ms infinite;
 }
 
 .foo-tl-1 {
   background-color: #00B20A !important;
 }
 
-.foo-tl-2 {
-  
-}
-
 .foo-tl-3 {
-  
-}
-
-.foo-tl-4 {
-  
+  animation: stopBouncing 1000ms forwards;
 }
 
 @keyframes startBouncing {
@@ -89,4 +81,42 @@ button:focus {
     height: 38px;
     bottom: 0;
   }
+}
+
+@keyframes stopBouncing {
+  /* start */
+  0% {
+    width: 140px;
+    height: 30px;
+    bottom: 0;
+    animation-timing-function: ease-out;
+  }
+  35% {
+    width: 128px;
+    height: 38px;
+    bottom: 35px;
+    animation-timing-function: ease-in;
+  }
+
+  /* 2 */
+  70% {
+    width: 140px;
+    height: 30px;
+    bottom: 0;
+    animation-timing-function: ease-out;
+  }
+  85% {
+    width: 128px;
+    height: 38px;
+    bottom: 15px;
+    animation-timing-function: ease-in;
+  }
+
+  /* end */
+  100% {
+    width: 128px;
+    height: 38px;
+    bottom: 0px;
+  }
+
 }
