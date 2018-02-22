@@ -7,7 +7,7 @@
 
 <body>
     <div class="buttonWrapper">
-        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-doneWaiting,100-end,wait,0-1400" data-pressme_waiting_text="Loading" pressme_repeat_clicks="false">Press Me</button>
+        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-doneWaiting,300-end,wait,0-1400" data-pressme_waiting_text="Loading" data-pressme_repeat_clicks="wait">Press Me</button>
     </div>
     <script src="../../pressMe.js"></script>
     <script>
@@ -16,7 +16,6 @@
             var button1 = document.getElementById("button1");
             var button1PressMe = new pressMe(button1);
             var button1WaitOver = false;
-            var button1SafeteyTimeout;
             var button1RequestInProgress = false;
 
             button1.addEventListener("click", button1ClickHandler);
@@ -31,30 +30,17 @@
 
             function button1ClickHandler() {
                
-
                 if (button1RequestInProgress === false) {
-                    console.log('click')
 
-                     button1WaitOver = false;
-
+                    button1WaitOver = false;
                     button1RequestInProgress = true;
 
                     // simulate ajax call
                     setTimeout(function () {
                         console.log("button1ClickHandler Callback");
                         button1WaitOver = true;
-                        
-
-                        // failsafe in case animationiteration listener breaks
-                        button1SafeteyTimeout = setTimeout(function () {
-                            console.log("button1SafeteyTimeout");
-                            button1PressMe.stopWaiting()
-                            button1RequestInProgress = false;
-                        }, 2000);
-
-                    }, 3000);
+                    }, 5000);
                 }
-
             }
         }, false);
 

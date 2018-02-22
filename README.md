@@ -110,11 +110,16 @@ There are additional attributes you can add, such as timeline, which give you mo
   * Each sibling div is given a class of [pressMeClassPrefix]-child.
   * Example: `data-pressme_add_sibling_divs="7"`
 
-
 * **data-pressme_class_target**: 
   * Enter &ldquo;parent&rdquo; or &ldquo;self&rdquo; (default is &ldquo;self&rdquo;).
   * Determines which element pressMe.js will add and remove CSS classes.
   * Example: `data-pressme_class_target="parent"`
+
+  * **data-pressme_repeat_clicks**: 
+  * Enter &ldquo;true&rdquo;, &ldquo;false&rdquo; or &ldquo;wait&rdquo; (default is &ldquo;true&rdquo;).
+  * Determines if pressMe.js should add and remove classes whenever the button is clicked (true), for just the first click (false) or should ignore clicks until the wait periond is over (wait).
+  * If you are using the timeline and include a wait section, then you should add a data-pressme_repeat_clicks value of false or wait in order to prevent clicks during the wait section.
+  * Example: `data-pressme_repeat_clicks="wait"`
 
 * **data-pressme_do_child_pos_fx**: 
   * Enter &ldquo;true&rdquo; to enable.

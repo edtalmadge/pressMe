@@ -1,29 +1,43 @@
 function pressMe(el) {
-    var el = el;
-    /* get values from data attributes */
-    var pressMeClassPrefix = el.dataset.pressme_class_prefix;
-    var doChildPositionFX = el.dataset.pressme_do_child_pos_fx; // means "Position Effects";
-    var clickTimeline = el.dataset.pressme_timeline;
-    var waitText = el.dataset.pressme_waiting_text;
-    var repeatClicks = el.dataset.pressme_repeat_clicks || true;
-    var classTarget = el;
-    if(el.dataset.pressme_class_target === "parent"){
-        classTarget = el.parentNode;
-    }
-    var defaultText = el.innerText;
-    var waitIndex;
-    var buttonWasClicked = false;
-    var buttonIsRunning = false;
-    var startAfterWaitClasses = [];
-    var stopAtEndClasses = [];
 
+    /***********************************/
+    /***********************************/
+    /* Get values from data attributes */
+    /***********************************/
+    /***********************************/
+
+    /** pressme_class_prefix **/
+    var pressMeClassPrefix = el.dataset.pressme_class_prefix;
+    
+    /** pressme_do_child_pos_fx **/
+    var doChildPositionFX = el.dataset.pressme_do_child_pos_fx;
+    if (doChildPositionFX === "true") {
+        doChildPositionFX = true;
+    } else {
+        doChildPositionFX = false;
+    }
+    
+    /** pressme_waiting_text **/
+    var waitText = el.dataset.pressme_waiting_text;
+    
+    /** pressme_repeat_clicks **/
+    var repeatClicks = el.dataset.pressme_repeat_clicks || true;
     if (repeatClicks === "true") {
         repeatClicks = true;
     } else if (repeatClicks === "false") {
         repeatClicks = false;
     }
+    
+    /** pressme_class_target **/
+    var classTarget = el;
+    if(el.dataset.pressme_class_target === "parent"){
+        classTarget = el.parentNode;
+    }
 
+    /** pressme_timeline **/
+    var clickTimeline = el.dataset.pressme_timeline;
     if (clickTimeline) {
+        // convert clickTimeline string value to array
         clickTimeline = clickTimeline.split(",");
 
         for (var i = 0; i < clickTimeline.length; i++) {
@@ -47,7 +61,48 @@ function pressMe(el) {
         }
     }
 
+    /** pressme_add_child_divs **/
+    var addChildDivsQty = parseInt(el.dataset.pressme_add_child_divs, 10);
+    var childDivs;
+    if (addChildDivsQty > 0) {
+        for (var i = 0; i < addChildDivsQty; i++) {
+            addChildDiv(el, pressMeClassPrefix);
+        }
+        childDivs = document.querySelectorAll("." + pressMeClassPrefix + "-child");
+    }
+
+    /** pressme_add_sibling_divs **/
+    var addSiblingDivsQty = parseInt(el.dataset.pressme_add_sibling_divs, 10);
+    var siblingDivs;
+    if (addSiblingDivsQty > 0) {
+        for (var i = 0; i < addSiblingDivsQty; i++) {
+            addSiblingDiv(el, pressMeClassPrefix);
+        }
+        siblingDivs = document.querySelectorAll("." + pressMeClassPrefix + "-sibling");
+    }
+
+    /***********************************/
+    /***********************************/
+    /* More things */
+    /***********************************/
+    /***********************************/
+
+    var defaultText = el.innerText;
+    var waitIndex;
+    var buttonWasClicked = false;
+    var buttonIsRunning = false;
+    var startAfterWaitClasses = [];
+    var stopAtEndClasses = [];
+
+
+    /****************************/
+    /****************************/
+    /***** Click Handler ********/
+    /****************************/
+    /****************************/
+
     function clickHandler(e) {
+
         if (repeatClicks === true
             || (repeatClicks === false && buttonWasClicked === false)
             || (repeatClicks === "wait" && buttonIsRunning === false)) {
@@ -61,7 +116,7 @@ function pressMe(el) {
                 doClickTimeline();
 
             } else {
-                // no timeline
+                // no timeline: just add and remove and add
                 classTarget.classList.remove(pressMeClassPrefix + "-click-response");
                 setTimeout(function () {
                     classTarget.classList.add(pressMeClassPrefix + "-click-response");
@@ -75,32 +130,6 @@ function pressMe(el) {
         }
     }
 
-    if (doChildPositionFX === "true") {
-        doChildPositionFX = true; // convert from string to boolean
-    } else {
-        doChildPositionFX = false;
-    }
-
-    var addChildDivsQty = parseInt(el.dataset.pressme_add_child_divs, 10);
-    var addSiblingDivsQty = parseInt(el.dataset.pressme_add_sibling_divs, 10);
-
-    var childDivs;
-    var siblingDivs;
-    el.addEventListener("click", clickHandler);
-
-    if (addChildDivsQty > 0) {
-        for (var i = 0; i < addChildDivsQty; i++) {
-            addChildDiv(el, pressMeClassPrefix);
-        }
-        childDivs = document.querySelectorAll("." + pressMeClassPrefix + "-child");
-    }
-
-    if (addSiblingDivsQty > 0) {
-        for (var i = 0; i < addSiblingDivsQty; i++) {
-            addSiblingDiv(el, pressMeClassPrefix);
-        }
-        siblingDivs = document.querySelectorAll("." + pressMeClassPrefix + "-sibling");
-    }
 
     function addChildDiv(el, pressMeClassPrefix) {
         var childDiv = document.createElement("div");
@@ -236,4 +265,6 @@ function pressMe(el) {
             doClickTimeline(true);
         }
     };
+
+    el.addEventListener("click", clickHandler);
 }
