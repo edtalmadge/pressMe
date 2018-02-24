@@ -195,7 +195,7 @@ function pressMe(el) {
             jStart = waitIndex + 1;
             classTarget.classList.remove(pressMeClassPrefix + "-tl-" + waitIndex);
             // If there's wait text, then add the normal text back
-            el.innerText = defaultText;
+            el.firstChild.nodeValue = defaultText;
         } else {
             jStart = 0;
         }
@@ -215,7 +215,7 @@ function pressMe(el) {
                 setTimeout(function () {
                     if (clickTimeline[j] === "wait") {
                         // add wait text
-                        el.innerText = waitText;
+                        el.firstChild.nodeValue = waitText;
                     } else {
                         classTarget.classList.add(pressMeClassPrefix + "-tl-" + j);
                     }

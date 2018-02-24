@@ -49,7 +49,7 @@ foo-tl-2
 foo-sibling
 
 
-1400-end: 
+200-1000: 
 Placeholder 
 slot just for timing 
 foo-tl-3
@@ -62,15 +62,106 @@ foo-tl-3
 
 */
 
+/*
+0-200: 
+flash 
+foo-tl-0
+*/
+
 .foo-tl-0 button {
-  animation: flash 2000 ease-in-out forwards;
+  animation: flash 200ms ease-in-out;
 }
 
 @keyframes flash {
   0% {
-    background-color: #FF1874;
-  }
-  100% {
     background-color: #fff;
   }
+  100% {
+    background-color: #FF1874;
+  }
 }
+
+/*
+200-doneWaiting: 
+Slam doors and heat 
+foo-child
+foo-tl-1
+*/
+
+.foo-tl-1 button {
+  animation: wobble 300ms 500ms ease-in-out forwards;
+}
+
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0);
+  }
+
+  33% {
+    transform: rotate(3deg);
+  }
+
+  66% {
+    transform: rotate(-3deg);
+  }
+}
+
+.foo-tl-1 .foo-child {
+  background-color: #424242;
+  width: 64px; height: 38px;
+  position: absolute;
+  z-index: -1;
+}
+
+.foo-tl-1 .foo-child:nth-child(1){
+  left: -64px; top: 0;
+  animation: closeLeftDoor 800ms forwards ease-in;
+}
+
+@keyframes closeLeftDoor {
+  0% {
+    left: -64px;
+  }
+  60% {
+    left: 0;
+  }
+  70% {
+    left: -20px;
+  }
+  80% {
+    left: 0;
+  }
+  90% {
+    left: -10px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.foo-tl-1 .foo-child:nth-child(2){
+  right: 0; top: 0;
+  animation: closeRightDoor 800ms forwards ease-in;
+}
+
+@keyframes closeRightDoor {
+  0% {
+    right: -64px;
+  }
+  60% {
+    right: 0;
+  }
+  70% {
+    right: -20px;
+  }
+  80% {
+    right: 0;
+  }
+  90% {
+    right: -10px;
+  }
+  100% {
+    right: 0;
+  }
+}
+

@@ -19,44 +19,16 @@
 
 -->
 
-        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-2000,200-doneWaiting,1000-doneWaiting,1400-end,wait,0-400"
-            data-pressme_waiting_text="Cooking" data-pressme_repeat_clicks="wait" data-pressme_add_child_divs="2" data-pressme_add_sibling_divs="7" data-pressme_class_target="parent">Press Me</button>
+        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-2000,200-doneWaiting,1400-end,200-1000,wait,0-400"
+            data-pressme_waiting_text="Cooking" data-pressme_repeat_clicks="wait" data-pressme_add_child_divs="2" data-pressme_add_sibling_divs="7"
+            data-pressme_class_target="parent">Press Me</button>
     </div>
     <script src="../../pressMe.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
             var button1 = document.getElementById("button1");
-            var button1PressMe = new pressMe(button1);
-            var button1WaitOver = false;
-            var button1RequestInProgress = false;
-
-            button1.addEventListener("click", button1ClickHandler);
-            button1.addEventListener("animationiteration", button1AnimationListener, false);
-
-            function button1AnimationListener() {
-                if (button1WaitOver === true) {
-                    button1PressMe.stopWaiting();
-                    button1RequestInProgress = false;
-                }
-            }
-
-            function button1ClickHandler() {
-
-                if (button1RequestInProgress === false) {
-
-                    button1WaitOver = false;
-                    button1RequestInProgress = true;
-
-                    // simulate ajax call
-                    setTimeout(function () {
-                        console.log("button1ClickHandler Callback");
-                        button1WaitOver = true;
-                    }, 5000);
-                }
-            }
+            var button1PressMe = pressMe(button1);
         }, false);
-
     </script>
 
 </body>
