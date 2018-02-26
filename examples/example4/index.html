@@ -8,18 +8,7 @@
 <body>
     <div class="fooWrapper">
 
-        <!--
-
-    0-200: flash foo-tl-0
-    200-doneWaiting: Slam doors and heat foo-tl-1
-    1000-doneWaiting: Boil foo-tl-x
-    1400-end: Placeholder slot just for timing foo-tl-2
-    wait
-    0-400: change to original color foo-tl-3
-
--->
-
-        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-2000,200-doneWaiting,1400-end,200-1000,wait,0-400"
+        <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-200(flash),200-1000(slam doors),1000-3000(heat),2000-doneWaiting(boil),wait,0-400(return to original state)"
             data-pressme_waiting_text="Cooking" data-pressme_repeat_clicks="wait" data-pressme_add_child_divs="2" data-pressme_add_sibling_divs="7"
             data-pressme_class_target="parent">Press Me</button>
     </div>
@@ -27,8 +16,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var button1 = document.getElementById("button1");
-            var button1PressMe = pressMe(button1);
+            var button1PressMe = new pressMe(button1);
+            button1.addEventListener("click", button1ClickHandler);
+
+            function button1ClickHandler() {
+                // simulate ajax call
+                setTimeout(function () {
+                    console.log("button1ClickHandler Callback");
+                    button1PressMe.stopWaiting();
+                }, 6000);
+            }
+
         }, false);
+
+
     </script>
 
 </body>

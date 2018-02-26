@@ -32,42 +32,24 @@ button:focus {
   outline: none;
 }
 
-/*
-0-200: 
-flash 
-foo-tl-0
+/* setup doors */
+.foo-child {
+  background-color: #424242;
+  width: 64px; height: 38px;
+  position: absolute;
+  z-index: -1;
+}
 
-200-doneWaiting: 
-Slam doors and heat 
-foo-child
-foo-tl-1
+.foo-child:nth-child(1) {
+  left: -64px; top: 0;
+}
+
+.foo-child:nth-child(2){
+  right: -64px; top: 0;
+}
 
 
-1000-doneWaiting:
-Boil
-foo-tl-2
-foo-sibling
-
-
-200-1000: 
-Placeholder 
-slot just for timing 
-foo-tl-3
-
-wait
-
-0-400: 
-change to original color 
-foo-tl-3
-
-*/
-
-/*
-0-200: 
-flash 
-foo-tl-0
-*/
-
+/* flash */
 .foo-tl-0 button {
   animation: flash 200ms ease-in-out;
 }
@@ -81,40 +63,8 @@ foo-tl-0
   }
 }
 
-/*
-200-doneWaiting: 
-Slam doors and heat 
-foo-child
-foo-tl-1
-*/
-
-.foo-tl-1 button {
-  animation: wobble 300ms 500ms ease-in-out forwards;
-}
-
-@keyframes wobble {
-  0%, 100% {
-    transform: rotate(0);
-  }
-
-  33% {
-    transform: rotate(3deg);
-  }
-
-  66% {
-    transform: rotate(-3deg);
-  }
-}
-
-.foo-tl-1 .foo-child {
-  background-color: #424242;
-  width: 64px; height: 38px;
-  position: absolute;
-  z-index: -1;
-}
-
+/* doors slam */
 .foo-tl-1 .foo-child:nth-child(1){
-  left: -64px; top: 0;
   animation: closeLeftDoor 800ms forwards ease-in;
 }
 
@@ -140,7 +90,6 @@ foo-tl-1
 }
 
 .foo-tl-1 .foo-child:nth-child(2){
-  right: 0; top: 0;
   animation: closeRightDoor 800ms forwards ease-in;
 }
 
@@ -165,3 +114,45 @@ foo-tl-1
   }
 }
 
+/* button wobbles when doors slam */
+.foo-tl-1 button {
+  animation: wobble 300ms 500ms ease-in-out forwards;
+}
+
+@keyframes wobble {
+  0%, 100% {
+    transform: rotate(0);
+  }
+
+  33% {
+    transform: rotate(3deg);
+  }
+
+  66% {
+    transform: rotate(-3deg);
+  }
+}
+
+
+/* heat */
+
+.foo-tl-2 .foo-child:nth-child(1){
+  left: 0;
+}
+
+.foo-tl-2 .foo-child:nth-child(2){
+  right: 0;
+}
+
+.foo-tl-2 .foo-child {
+  animation: heat 1000ms ease-in;
+}
+
+@keyframes heat {
+  0% {
+    background-color: red;
+  }
+  100% {
+    background-color: blue;
+  }
+}
