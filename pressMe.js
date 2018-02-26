@@ -36,6 +36,9 @@ function pressMe(el) {
 
     /** pressme_timeline **/
     var clickTimeline = el.dataset.pressme_timeline;
+    // remove notes (values in parentheses)
+    clickTimeline = clickTimeline.replace(/ *\([^)]*\) */g, "");
+
     if (clickTimeline) {
         // convert clickTimeline string value to array
         clickTimeline = clickTimeline.split(",");
@@ -53,6 +56,8 @@ function pressMe(el) {
         }
 
         // calculate wait position
+        
+        var waitIndex;
         for (var i = 0; i < clickTimeline.length; i++) {
             if (clickTimeline[i] === 'wait') {
                 waitIndex = i;
@@ -88,7 +93,6 @@ function pressMe(el) {
     /****************************/
 
     var defaultText = el.innerText;
-    var waitIndex;
     var buttonWasClicked = false;
     var buttonIsRunning = false;
     var startAfterWaitClasses = [];

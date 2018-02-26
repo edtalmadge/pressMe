@@ -129,6 +129,7 @@ There are additional attributes you can add, such as timeline, which give you mo
  * **data-pressme_timeline**: 
    * Enter a comma seperated list of time ranges in milliseconds. Time ranges can overlap.
    * During each time range pressMe.js will add, then remove the class name of [pressMeClassPrefix]-tl-[time range index] to your button.
+   * Add notes in parentheses to the time line if desired, such as: `data-pressme_timeline="0-200(flash),200-1000(slam doors)"`
    * **wait**: Cause the timeline to pause until a callback is recieved by adding &ldquo;wait&rdquo; to the timeline. The wait section of the timeline begins after the previous section of the timeline finishes (no overlap). Invoke the stopWaiting method to resume the timeline after the wait section.
    * **[miliseconds]-doneWaiting**: Cause a class to remain on the element until the wait period is over.
    * **[miliseconds]-end**: Cause a class to remain on the element until the timeline is complete.
