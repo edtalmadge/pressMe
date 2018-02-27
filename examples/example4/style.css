@@ -22,6 +22,8 @@ button {
   position: relative;
   z-index: 1;
   transition: background-color 1000ms ease-in-out;
+
+  
 }
 
 button:hover {
@@ -136,6 +138,19 @@ button:focus {
 
 /* heat */
 
+.foo-tl-2 .foo-child {
+background: linear-gradient(
+    to top,
+    #faf49d 0%,
+    #ff0202 25%,
+    #424242 50%,
+    #424242 100%
+  );
+  background-size: 128px 76px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
 .foo-tl-2 .foo-child:nth-child(1){
   left: 0;
 }
@@ -145,14 +160,84 @@ button:focus {
 }
 
 .foo-tl-2 .foo-child {
-  animation: heat 1000ms ease-in;
+  animation: heat 2000ms linear forwards;
 }
 
 @keyframes heat {
   0% {
-    background-color: red;
+    background-position: 0 0;
   }
   100% {
-    background-color: blue;
+    background-position: 0 -31px;
   }
 }
+
+.foo-tl-2 button {
+  animation: shake 300ms 500ms ease-in infinite;
+} 
+
+/* slow boil */
+
+/* .foo-tl-3 .foo-child {
+  background: linear-gradient(
+      to top,
+      #faf49d 0%,
+      #ff0202 25%,
+      #424242 50%,
+      #424242 100%
+    );
+    background-size: 128px 76px;
+    background-position: 0 -31;
+    background-repeat: no-repeat;
+  }
+
+  .foo-tl-3 .foo-child:nth-child(1){
+    left: 0;
+  }
+  
+  .foo-tl-3 .foo-child:nth-child(2){
+    right: 0;
+  }
+
+  .foo-tl-3 button {
+    animation: shake 300ms ease-in infinite;
+  } */
+
+  /* fast boil */
+
+.foo-tl-3 .foo-child {
+  background: linear-gradient(
+      to top,
+      #faf49d 0%,
+      #ff0202 25%,
+      #424242 50%,
+      #424242 100%
+    );
+    background-size: 128px 76px;
+    background-position: 0 -31;
+    background-repeat: no-repeat;
+  }
+
+  .foo-tl-3 .foo-child:nth-child(1){
+    left: 0;
+  }
+  
+  .foo-tl-3 .foo-child:nth-child(2){
+    right: 0;
+  }
+
+  .foo-tl-3 button {
+    animation: shake 100ms linear infinite;
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      left: 0px;
+    }
+    25% {
+      left: 1px;
+    }
+    75% {
+      left: -1px;
+    }
+  }
