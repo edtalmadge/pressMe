@@ -30,7 +30,6 @@ button {
   font-size: 16px;
   z-index: 1;
   transition: background-color 400ms ease-in-out;
-  /* animation: startBouncing 1200ms infinite; */
 }
 
 button:hover {
@@ -55,35 +54,20 @@ button:focus {
 
 @keyframes startBouncing {
   0% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 0px; */
     transform: translateY(0) scale(1, 1);
   }
   10% {
-    /* width: 140px;
-    height: 30px;
-    bottom: 0; */
     transform: translateY(0) scale(1.09375, 0.789473);
   }
   20% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 0; */
     transform: translateY(0) scale(1, 1);
     animation-timing-function: ease-out;
   }
   60% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 40px; */
     transform: translateY(-40px) scale(1, 1);
     animation-timing-function: ease-in;
   }
   100% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 0; */
     transform: translateY(0) scale(1, 1);
   }
 }
@@ -91,41 +75,26 @@ button:focus {
 @keyframes stopBouncing {
   /* start */
   0% {
-    /* width: 140px;
-    height: 30px;
-    bottom: 0; */
     transform: translateY(0) scale(1.09375, 0.789473);
     animation-timing-function: ease-out;
   }
   35% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 35px; */
     transform: translateY(-35px) scale(1, 1);
     animation-timing-function: ease-in;
   }
 
   /* 2 */
   70% {
-    /* width: 140px;
-    height: 30px;
-    bottom: 0; */
     transform: translateY(0) scale(1.09375, 0.789473);
     animation-timing-function: ease-out;
   }
   85% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 15px; */
     transform: translateY(-15px) scale(1, 1);
     animation-timing-function: ease-in;
   }
 
   /* end */
   100% {
-    /* width: 128px;
-    height: 38px;
-    bottom: 0px; */
     transform: translateY(0) scale(1, 1);
   }
 
