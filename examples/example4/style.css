@@ -8,6 +8,10 @@ body {
   background-color: #0D081A;
 }
 
+.fooWrapper {
+  position: relative;
+}
+
 button {
   width: 128px;
   height: 38px;
@@ -176,33 +180,6 @@ background: linear-gradient(
   animation: shake 300ms 500ms ease-in infinite;
 } 
 
-/* slow boil */
-
-/* .foo-tl-3 .foo-child {
-  background: linear-gradient(
-      to top,
-      #faf49d 0%,
-      #ff0202 25%,
-      #424242 50%,
-      #424242 100%
-    );
-    background-size: 128px 76px;
-    background-position: 0 -31;
-    background-repeat: no-repeat;
-  }
-
-  .foo-tl-3 .foo-child:nth-child(1){
-    left: 0;
-  }
-  
-  .foo-tl-3 .foo-child:nth-child(2){
-    right: 0;
-  }
-
-  .foo-tl-3 button {
-    animation: shake 300ms ease-in infinite;
-  } */
-
   /* fast boil */
 
 .foo-tl-3 .foo-child {
@@ -239,5 +216,123 @@ background: linear-gradient(
     }
     75% {
       left: -1px;
+    }
+  }
+
+  /* bubbles */
+  .foo-tl-3 .foo-sibling {
+    background-color: #7474fc;
+    border-radius: 50%;
+    bottom: 0px;
+    position: absolute;
+  }
+
+  /* bubble 1 */
+  .foo-tl-3 .foo-sibling:nth-child(2) {
+    width: 14px; height: 14px;
+    left: 0;
+    animation: bubble ease-in 600ms infinite;
+  }
+
+  /* bubble 2 */
+  .foo-tl-3 .foo-sibling:nth-child(3) {
+    width: 12px; height: 12px;
+    left: 18px;
+    animation: bubble ease-in 700ms 500ms infinite;
+  }
+
+  /* bubble 3 */
+  .foo-tl-3 .foo-sibling:nth-child(4) {
+    width: 15px; height: 15px;
+    left: 34px;
+    animation: bubble ease-in 500ms 100ms infinite;
+  }
+
+  /* bubble 4 */
+  .foo-tl-3 .foo-sibling:nth-child(5) {
+    width: 10px; height: 10px;
+    left: 53px;
+    animation: bubble ease-in 600ms 300ms infinite;
+  }
+
+  /* bubble 5 */
+  .foo-tl-3 .foo-sibling:nth-child(6) {
+    width: 16px; height: 16px;
+    left: 68px;
+    animation: bubble ease-in 400ms 100ms infinite;
+  }
+
+  /* bubble 6 */
+  .foo-tl-3 .foo-sibling:nth-child(7) {
+    width: 10.5px; height: 10.5px;
+    left: 85px;
+    animation: bubble ease-in 300ms 200ms infinite;
+  }
+
+  /* bubble 7 */
+  .foo-tl-3 .foo-sibling:nth-child(8) {
+    width: 11px; height: 11px;
+    left: 101px;
+    animation: bubble ease-in 700ms 400ms infinite;
+  }
+
+  /* bubble 8 */
+  .foo-tl-3 .foo-sibling:nth-child(9) {
+    width: 12px; height: 12px;
+    left: 115px;
+    animation: bubble ease-in 500ms 150ms infinite;
+  }
+
+  @keyframes bubble {
+    0% {
+      /* bottom: 20px; */
+      transform: translateY(-20px);
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      /* bottom: 80px; */
+      transform: translateY(-80px);
+      opacity: 0;
+    }
+  }
+
+  /* transition to ending state */
+
+  .foo-tl-5 button {
+    animation: shake 200ms linear infinite;
+  }
+
+  .foo-tl-5 .foo-child {
+    background: linear-gradient(
+        to top,
+        #faf49d 0%,
+        #ff0202 25%,
+        #424242 50%,
+        #424242 100%
+      );
+      background-size: 128px 76px;
+      background-position: 0 -31;
+      background-repeat: no-repeat;
+  }
+
+  .foo-tl-5 .foo-child:nth-child(1){
+    left: 0;
+    animation: fadeOut 600ms ease-in-out forwards;
+  }
+  
+  .foo-tl-5 .foo-child:nth-child(2){
+    right: 0;
+    animation: fadeOut 600ms ease-in-out forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1.0;
+    }
+    100% {
+      opacity: 0;
     }
   }
