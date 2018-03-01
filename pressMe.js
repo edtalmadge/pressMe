@@ -36,10 +36,12 @@ function pressMe(el) {
 
     /** pressme_timeline **/
     var clickTimeline = el.dataset.pressme_timeline;
-    // remove notes (values in parentheses)
-    clickTimeline = clickTimeline.replace(/ *\([^)]*\) */g, "");
-
+    
     if (clickTimeline) {
+        
+        // remove notes (values in parentheses)
+        clickTimeline = clickTimeline.replace(/ *\([^)]*\) */g, "");
+
         // convert clickTimeline string value to array
         clickTimeline = clickTimeline.split(",");
 
