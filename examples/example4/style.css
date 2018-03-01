@@ -230,7 +230,7 @@ background: linear-gradient(
   /* bubble 1 */
   .foo-tl-3 .foo-sibling:nth-child(2) {
     width: 14px; height: 14px;
-    left: 0;
+    left: 2px;
     animation: bubble ease-in 600ms infinite;
   }
 
@@ -279,7 +279,7 @@ background: linear-gradient(
   /* bubble 8 */
   .foo-tl-3 .foo-sibling:nth-child(9) {
     width: 12px; height: 12px;
-    left: 115px;
+    left: 114px;
     animation: bubble ease-in 500ms 150ms infinite;
   }
 

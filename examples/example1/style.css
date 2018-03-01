@@ -38,8 +38,8 @@ button:before {
   display: block;
   width: 100px; height: 38px;
   position: absolute;
-  left: -140px; top: 0;
-  transform: skew(20deg)
+  transform: translateX(-140px) skew(20deg);
+  top: 0;
 }
 
 .foo-click-response:before {
@@ -47,8 +47,14 @@ button:before {
 }
 
 @keyframes sheen1 {
-  0% {left: -100px; opacity: 0.4}
-  100% {left: 100%; opacity: 0.4}
+  0% {
+    transform: translateX(-100px) skew(20deg);
+    opacity: 0.4
+  }
+  100% {
+    transform: translateX(100%) skew(20deg);
+    opacity: 0.4
+  }
 }
 
 .foo-click-response {
