@@ -8,22 +8,28 @@
 <body>
     <div class="fooWrapper">
         <button id="button1" data-pressme_class_prefix="foo" data-pressme_timeline="0-200(flash),200-1000(slam doors),1000-3000(heat and start boil),3000-doneWaiting(boil),wait,0-600(return to original state)"
-            data-pressme_waiting_text="Cooking" data-pressme_repeat_clicks="wait" data-pressme_add_child_divs="2" data-pressme_add_sibling_divs="8"
-            data-pressme_class_target="parent">Press Me</button>
+            data-pressme_waiting_text="Cooking" data-pressme_repeat_clicks="wait" data-pressme_minimum_animation_length="4000"
+            data-pressme_add_child_divs="2" data-pressme_add_sibling_divs="8" data-pressme_class_target="parent">Press Me</button>
     </div>
     <script src="../../pressMe.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             var button1 = document.getElementById("button1");
             var button1PressMe = new pressMe(button1);
+
             button1.addEventListener("click", button1ClickHandler);
 
             function button1ClickHandler() {
+                
+                console.log("buttonStoppedWaiting: " + button1PressMe.buttonStoppedWaiting);
                 // simulate ajax call
-                setTimeout(function () {
-                    console.log("button1ClickHandler Callback");
-                    button1PressMe.stopWaiting();
-                }, 8000);
+                if (button1PressMe.buttonStoppedWaiting === false) {
+                    
+                    setTimeout(function () {
+                        button1PressMe.stopWaiting();
+                    }, 1000);
+                }
             }
 
         }, false);

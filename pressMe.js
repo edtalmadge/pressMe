@@ -38,7 +38,7 @@ function pressMe(el) {
     var clickTimeline = el.dataset.pressme_timeline;
     
     if (clickTimeline) {
-        
+
         // remove notes (values in parentheses)
         clickTimeline = clickTimeline.replace(/ *\([^)]*\) */g, "");
 
@@ -88,6 +88,9 @@ function pressMe(el) {
         siblingDivs = document.querySelectorAll("." + pressMeClassPrefix + "-sibling");
     }
 
+    /** pressme_minimum_animation_time **/
+    var minAnimLength = parseInt(el.dataset.pressme_minimum_animation_length, 10);
+
     /****************************/
     /****************************/
     /***** More Things **********/
@@ -97,8 +100,14 @@ function pressMe(el) {
     var defaultText = el.innerText;
     var buttonWasClicked = false;
     var buttonIsRunning = false;
+    var minAnimLengthPassed = false;
+    var minAnimLengthTimer;
+    var checkMinAnimLengthPassedTimer;
     var startAfterWaitClasses = [];
     var stopAtEndClasses = [];
+    var that = this;
+    var buttonStoppedWaiting = false;
+    that.buttonStoppedWaiting = false;
 
 
     /****************************/
@@ -108,10 +117,11 @@ function pressMe(el) {
     /****************************/
 
     function clickHandler(e) {
-
         if (repeatClicks === true
             || (repeatClicks === false && buttonWasClicked === false)
             || (repeatClicks === "wait" && buttonIsRunning === false)) {
+
+            // that.buttonStoppedWaiting = false;
 
             if (doChildPositionFX === true) {
                 setChildLeftPositionToCursor(e);
@@ -131,11 +141,19 @@ function pressMe(el) {
 
             if (clickTimeline) {
                 buttonIsRunning = true;
+                // that.buttonStoppedWaiting = false;
             }
             buttonWasClicked = true;
+
+            if(minAnimLength){
+                minAnimLengthPassed = false;
+                clearTimeout(minAnimLengthTimer);
+                minAnimLengthTimer = setTimeout(function(){
+                    minAnimLengthPassed = true;
+                }, minAnimLength);
+            }
         }
     }
-
 
     function addChildDiv(el, pressMeClassPrefix) {
         var childDiv = document.createElement("div");
@@ -194,7 +212,9 @@ function pressMe(el) {
                 waitingClass = startAfterWaitClasses[k];
                 waitingEl = document.getElementsByClassName(waitingClass);
                 waitingEl = waitingEl[0];
-                waitingEl.classList.remove(waitingClass);
+                if(waitingEl){
+                    waitingEl.classList.remove(waitingClass);
+                }
             }
             startAfterWaitClasses = [];
 
@@ -235,7 +255,7 @@ function pressMe(el) {
 
                         if(j === clickTimeline.length - 1){
                             buttonIsRunning = false;
-
+                            that.buttonStoppedWaiting = false;
                             for(var k = 0; k < stopAtEndClasses.length; k++){
                                 endingClass = stopAtEndClasses[k];
                                 endingEl = document.getElementsByClassName(endingClass);
@@ -266,9 +286,30 @@ function pressMe(el) {
     }
 
     this.stopWaiting = function () {
-        console.log("Stop Waiting!");
+        // console.log("Stop Waiting!");
         if (waitIndex) {
-            doClickTimeline(true);
+
+            that.buttonStoppedWaiting = true;
+            // console.log('buttonStoppedWaiting: ' + that.buttonStoppedWaiting)
+
+            if(!minAnimLength){
+                doClickTimeline(true);
+                that.buttonStoppedWaiting = true;
+                
+            } else if(minAnimLengthPassed === true){
+                doClickTimeline(true);
+                that.buttonStoppedWaiting = true;
+
+            } else if(minAnimLengthPassed === false){
+                checkMinAnimLengthPassedTimer = setInterval(function(){
+                    if(minAnimLengthPassed === true){
+                        clearInterval(checkMinAnimLengthPassedTimer);
+                        minAnimLengthPassed = true;
+                        doClickTimeline(true);
+                        that.buttonStoppedWaiting = true;
+                    }
+                }, 500);
+            }
         }
     };
 
