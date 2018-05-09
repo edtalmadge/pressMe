@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Pess Me</title>
+    <title>Press Me</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -22,12 +22,14 @@
 
             function button1ClickHandler() {
                 
-                console.log("buttonStoppedWaiting: " + button1PressMe.buttonStoppedWaiting);
                 // simulate ajax call
-                if (button1PressMe.buttonStoppedWaiting === false) {
-                    
+                
+                if (button1PressMe.buttonIsRunning === false) {
+                
                     setTimeout(function () {
-                        button1PressMe.stopWaiting();
+                        if(button1PressMe.buttonStoppedWaiting === false){
+                            button1PressMe.stopWaiting();
+                        }
                     }, 1000);
                 }
             }

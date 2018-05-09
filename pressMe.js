@@ -8,7 +8,7 @@ function pressMe(el) {
 
     /** pressme_class_prefix **/
     var pressMeClassPrefix = el.dataset.pressme_class_prefix;
-    
+
     /** pressme_do_child_pos_fx **/
     var doChildPositionFX = el.dataset.pressme_do_child_pos_fx;
     if (doChildPositionFX === "true") {
@@ -16,10 +16,10 @@ function pressMe(el) {
     } else {
         doChildPositionFX = false;
     }
-    
+
     /** pressme_waiting_text **/
     var waitText = el.dataset.pressme_waiting_text;
-    
+
     /** pressme_repeat_clicks **/
     var repeatClicks = el.dataset.pressme_repeat_clicks || true;
     if (repeatClicks === "true") {
@@ -27,16 +27,16 @@ function pressMe(el) {
     } else if (repeatClicks === "false") {
         repeatClicks = false;
     }
-    
+
     /** pressme_class_target **/
     var classTarget = el;
-    if(el.dataset.pressme_class_target === "parent"){
+    if (el.dataset.pressme_class_target === "parent") {
         classTarget = el.parentNode;
     }
 
     /** pressme_timeline **/
     var clickTimeline = el.dataset.pressme_timeline;
-    
+
     if (clickTimeline) {
 
         // remove notes (values in parentheses)
@@ -50,7 +50,7 @@ function pressMe(el) {
                 clickTimeline[i] = clickTimeline[i].split("-");
 
                 for (var j = 0; j < clickTimeline[i].length; j++) {
-                    if(clickTimeline[i][j] !== "doneWaiting" && clickTimeline[i][j] !== "end"){
+                    if (clickTimeline[i][j] !== "doneWaiting" && clickTimeline[i][j] !== "end") {
                         clickTimeline[i][j] = parseInt(clickTimeline[i][j], 10);
                     }
                 }
@@ -58,7 +58,7 @@ function pressMe(el) {
         }
 
         // calculate wait position
-        
+
         var waitIndex;
         for (var i = 0; i < clickTimeline.length; i++) {
             if (clickTimeline[i] === 'wait') {
@@ -97,17 +97,16 @@ function pressMe(el) {
     /****************************/
     /****************************/
 
+    var that = this;
     var defaultText = el.innerText;
     var buttonWasClicked = false;
-    var buttonIsRunning = false;
     var minAnimLengthPassed = false;
     var minAnimLengthTimer;
     var checkMinAnimLengthPassedTimer;
     var startAfterWaitClasses = [];
     var stopAtEndClasses = [];
-    var that = this;
-    var buttonStoppedWaiting = false;
     that.buttonStoppedWaiting = false;
+    that.buttonIsRunning = false;
 
 
     /****************************/
@@ -119,7 +118,13 @@ function pressMe(el) {
     function clickHandler(e) {
         if (repeatClicks === true
             || (repeatClicks === false && buttonWasClicked === false)
-            || (repeatClicks === "wait" && buttonIsRunning === false)) {
+            || (that.buttonIsRunning === false)
+        ) {
+
+            if(that.buttonIsRunning === false){
+                that.buttonStoppedWaiting = false;
+            }
+
 
             // that.buttonStoppedWaiting = false;
 
@@ -140,15 +145,18 @@ function pressMe(el) {
             }
 
             if (clickTimeline) {
-                buttonIsRunning = true;
+                setTimeout(function(){
+                    that.buttonIsRunning = true;
+                },1)
+                
                 // that.buttonStoppedWaiting = false;
             }
             buttonWasClicked = true;
 
-            if(minAnimLength){
+            if (minAnimLength) {
                 minAnimLengthPassed = false;
                 clearTimeout(minAnimLengthTimer);
-                minAnimLengthTimer = setTimeout(function(){
+                minAnimLengthTimer = setTimeout(function () {
                     minAnimLengthPassed = true;
                 }, minAnimLength);
             }
@@ -208,11 +216,11 @@ function pressMe(el) {
 
         if (startAfterWait === true) {
 
-            for(var k = 0; k < startAfterWaitClasses.length; k++){
+            for (var k = 0; k < startAfterWaitClasses.length; k++) {
                 waitingClass = startAfterWaitClasses[k];
                 waitingEl = document.getElementsByClassName(waitingClass);
                 waitingEl = waitingEl[0];
-                if(waitingEl){
+                if (waitingEl) {
                     waitingEl.classList.remove(waitingClass);
                 }
             }
@@ -228,13 +236,6 @@ function pressMe(el) {
 
         for (var j = jStart; j < clickTimeline.length; j++) {
 
-            if (j === waitIndex) {
-                tlSectionStart = clickTimeline[j - 1][1];
-            } else {
-                tlSectionStart = clickTimeline[j][0];
-            }
-
-            tlSectionEnd = clickTimeline[j][1];
 
             // add class
             (function (j) {
@@ -245,22 +246,46 @@ function pressMe(el) {
                     } else {
                         classTarget.classList.add(pressMeClassPrefix + "-tl-" + j);
                     }
-                    
+
                 }, tlSectionStart);
+
+                if (j === waitIndex) {
+                    tlSectionStart = clickTimeline[j - 1][1];
+                } else {
+                    tlSectionStart = clickTimeline[j][0];
+                }
+        
+                if(clickTimeline[j].length === 1){
+                    tlSectionEnd = clickTimeline[j][0];
+                } else {
+                    tlSectionEnd = clickTimeline[j][1];
+                }
 
                 if (clickTimeline[j] !== "wait" && tlSectionEnd !== "doneWaiting" && tlSectionEnd !== "end") {
                     // remove class
                     setTimeout(function () {
+                        // TODO: This logic is duplicated. Centralize it.
+                        if (j === waitIndex) {
+                            tlSectionStart = clickTimeline[j - 1][1];
+                        } else {
+                            tlSectionStart = clickTimeline[j][0];
+                        }
+                
+                        if(clickTimeline[j].length === 1){
+                            tlSectionEnd = clickTimeline[j][0];
+                        } else {
+                            tlSectionEnd = clickTimeline[j][1];
+                        }
+
                         classTarget.classList.remove(pressMeClassPrefix + "-tl-" + j);
 
-                        if(j === clickTimeline.length - 1){
-                            buttonIsRunning = false;
-                            that.buttonStoppedWaiting = false;
-                            for(var k = 0; k < stopAtEndClasses.length; k++){
+                        if (j === clickTimeline.length - 1) {
+                            that.buttonIsRunning = false;
+                            for (var k = 0; k < stopAtEndClasses.length; k++) {
                                 endingClass = stopAtEndClasses[k];
                                 endingEl = document.getElementsByClassName(endingClass);
                                 endingEl = endingEl[0];
-                                if(endingEl){
+                                if (endingEl) {
                                     endingEl.classList.remove(endingClass);
                                 }
                             }
@@ -273,12 +298,12 @@ function pressMe(el) {
 
             })(j);
 
-            if(tlSectionEnd === "doneWaiting"){
+            if (tlSectionEnd === "doneWaiting") {
                 startAfterWaitClasses.push(pressMeClassPrefix + "-tl-" + j);
-            } else if(tlSectionEnd === "end"){
+            } else if (tlSectionEnd === "end") {
                 stopAtEndClasses.push(pressMeClassPrefix + "-tl-" + j);
             }
-            
+
             if (clickTimeline[j] === "wait") {
                 break;
             }
@@ -286,23 +311,20 @@ function pressMe(el) {
     }
 
     this.stopWaiting = function () {
-        // console.log("Stop Waiting!");
+        
         if (waitIndex) {
 
-            that.buttonStoppedWaiting = true;
-            // console.log('buttonStoppedWaiting: ' + that.buttonStoppedWaiting)
-
-            if(!minAnimLength){
-                doClickTimeline(true);
-                that.buttonStoppedWaiting = true;
-                
-            } else if(minAnimLengthPassed === true){
+            if (!minAnimLength) {
                 doClickTimeline(true);
                 that.buttonStoppedWaiting = true;
 
-            } else if(minAnimLengthPassed === false){
-                checkMinAnimLengthPassedTimer = setInterval(function(){
-                    if(minAnimLengthPassed === true){
+            } else if (minAnimLengthPassed === true) {
+                doClickTimeline(true);
+                that.buttonStoppedWaiting = true;
+
+            } else if (minAnimLengthPassed === false) {
+                checkMinAnimLengthPassedTimer = setInterval(function () {
+                    if (minAnimLengthPassed === true) {
                         clearInterval(checkMinAnimLengthPassedTimer);
                         minAnimLengthPassed = true;
                         doClickTimeline(true);
